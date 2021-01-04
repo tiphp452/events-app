@@ -1,0 +1,14 @@
+<h1><%= @event.name %></h1>
+<h5>イベント内容</h5>
+<p><%= @event.content %></p>
+<h5>開催時間</h5>
+<p><%= "#{l(@event.start_at, format: :long)} - #{l(@event.end_at, format: :long)}" %></p>
+<h5>開催場所</h5>
+<p><%= @event.place %></p>
+<h5>主催者</h5>
+<p><%= @event.owner.name %></p>
+
+<% if @event.created_by?(current_user) %>
+  <%= link_to "イベントを編集する", edit_event_path(@event), class: "" %>
+  <%= link_to "イベントを削除する", event_path(@event), class: "", method: :delete, data: {confirm: "本当に削除しますか？" } %>
+<% end %>

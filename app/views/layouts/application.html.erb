@@ -10,6 +10,20 @@
   </head>
 
   <body>
+    <% if flash.notice %>
+      <%= flash.notice %>
+    <% elsif flash.alert %>
+      <%= flash.alert %>
+    <% end %>
+
+    <%= link_to "イベントを作る", new_event_path, class: "" %>
+
+    <%  if user_signed_in? %>
+      <%= link_to "ログアウト", destroy_user_session_path, class: "", method: :delete %>
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path, class: "", method: :post %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
