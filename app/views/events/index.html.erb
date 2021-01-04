@@ -1,0 +1,10 @@
+<h1>イベント一覧</h1>
+
+<ul>
+  <% @events.each do |event| %>
+    <%= link_to(event, class: "") do %>
+      <h5><%= event.name %></h5>
+      <p><%= "#{l(event.start_at, format: :long)} - #{l(event.end_at, format: :long)}" %></p>
+    <% end %>
+  <% end %>
+</ul>
