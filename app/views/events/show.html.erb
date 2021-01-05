@@ -12,3 +12,11 @@
   <%= link_to "イベントを編集する", edit_event_path(@event), class: "" %>
   <%= link_to "イベントを削除する", event_path(@event), class: "", method: :delete, data: {confirm: "本当に削除しますか？" } %>
 <% end %>
+
+<% if user_signed_in? %>
+  <%= form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f| %>
+    <div id="createTicketsErrors"></div>
+    <%= f.text_field :comment %>
+    <%= f.submit "参加する", class: "" %>
+  <% end %>
+<% end %>
