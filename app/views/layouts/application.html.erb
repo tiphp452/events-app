@@ -19,6 +19,7 @@
     <%= link_to "イベントを作る", new_event_path, class: "" %>
 
     <%  if user_signed_in? %>
+      <%= link_to "退会", new_retirements_path, class: "" %>
       <%= link_to "ログアウト", destroy_user_session_path, class: "", method: :delete %>
     <% else %>
       <%= link_to "ログイン", new_user_session_path, class: "", method: :post %>

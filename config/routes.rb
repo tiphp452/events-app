@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   }
   root "welcome#index"
+  resource :retirements
+
   resources :events do
     resources :tickets
   end

@@ -6,17 +6,36 @@
 <h5>開催場所</h5>
 <p><%= @event.place %></p>
 <h5>主催者</h5>
-<p><%= @event.owner.name %></p>
+<% if @event.owner %>
+  <p><%= @event.owner.name %></p>
+<% else%>
+  退会したユーザーです。
+<% end %>
 
 <% if @event.created_by?(current_user) %>
   <%= link_to "イベントを編集する", edit_event_path(@event), class: "" %>
   <%= link_to "イベントを削除する", event_path(@event), class: "", method: :delete, data: {confirm: "本当に削除しますか？" } %>
 <% end %>
 
-<% if user_signed_in? %>
+<% if @ticket %>
+  <%= link_to "参加をキャンセルする", event_ticket_path(@event, @ticket), method: :delete, class: "" %>
+<% elsif user_signed_in? %>
   <%= form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f| %>
     <div id="createTicketsErrors"></div>
     <%= f.text_field :comment %>
     <%= f.submit "参加する", class: "" %>
   <% end %>
 <% end %>
+
+<h5>参加者</h5>
+<ul>
+  <% @tickets.each do |ticket| %>
+    <li>
+      <% if ticket.user %>
+        <%= "#{ticket.user.name}" %>
+      <% else %>
+        退会したユーザーです。
+      <% end %>
+    </li>
+  <% end %>
+</ul>
