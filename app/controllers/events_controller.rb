@@ -11,7 +11,6 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.created_events.build(event_params)
-
     if @event.save
       redirect_to @event, notice: "作成しました"
     end
@@ -19,6 +18,8 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @ticket = current_user && current_user.tickets.find_by(event: @event)
+    @tickets = @event.tickets.includes(:user).order(:created_at)
   end
 
   def edit
